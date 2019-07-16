@@ -19,6 +19,22 @@ class cube{
         <div style="background-color: magenta" class="left"></div>
         <div style="background-color: gold" class="rigth"></div>
         `;
+        this.faceList = {};
+        this.faceNames = ["front","back","top","bottom","left","rigth"];
+        for(let i = 0; i < 6; ++i){
+          let face = document.createElement("div");
+          face.className = this.faceNames[i];
+          this.faceList[this.faceNames[i]] = {
+            name : this.faceNames[i],
+            index : i,
+            style : undefined,
+            content: undefined,
+          }
+          this.cube.append(face);
+
+        }
+        this.cube.querySelectorAll("div").forEach
+
         
         this.cube.onclick = this.cubeActivate.bind(this);
 
