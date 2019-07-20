@@ -3,64 +3,65 @@
 
 
 class cube{
-    constructor(parameter){
-        parameter = objectDefaultValue(parameter, CUBE_DEFAULT_PARAMETERS);
-        this.cube = document.createElement("div");
+    constructor(parameters){
+      this.paramerters = objectDefaultValue(parameters, CUBE_DEFAULT_PARAMETERS);
 
-        this.cube.className  = "cube face";
-        this.faceFront = true;
-        this.cube.faceFront = true;
-        
-        this.cube.innerHTML = `
-        <div style="background-color: red" class="front"></div>
-        <div style="background-color: pink" class="back"></div>
-        <div style="background-color: blue" class="top"></div>
-        <div style="background-color: yellowgreen" class="bottom"></div>
-        <div style="background-color: magenta" class="left"></div>
-        <div style="background-color: gold" class="rigth"></div>
-        `;
-        this.faceList = {};
-        this.faceNames = ["front","back","top","bottom","left","rigth"];
-        for(let i = 0; i < 6; ++i){
-          let face = document.createElement("div");
-          face.className = this.faceNames[i];
-          this.faceList[this.faceNames[i]] = {
-            name : this.faceNames[i],
-            index : i,
-            style : undefined,
-            content: undefined,
-          }
-          this.cube.append(face);
+      this.makeCube();
+      this.geometrySetup();
 
-        }
-        this.cube.querySelectorAll("div").forEach
-
-        
-        this.cube.onclick = this.cubeActivate.bind(this);
-
-        _style(this.cube, parameter.style);
-        
-        if(parameter.returnCube)
-            return this.cube;
+      if(this.paramerters.returnCube)
+        return this.cube;
     }
 
 
-    cubeActivate(){
-        this.faceFront = !this.faceFront;
-        console.log(this.faceFront);
-        this.cube.classList.toggle("face");
-        this.cube.classList.toggle("back");
+
+    makeCube(){
+      this.cube = document.createElement("div");
+      
+      this.faceNames = ["front","back","top","bottom","left","rigth"];
+      this.faceNames.forEach(function(faceName){
+        this[faceName] = document.createElement("div");
+        this[faceName].className =  "cube_" + faceName;
+        this.cube.append(this[faceName]);
+      }.bind(this));
+
+    }
+    geometrySetup(){
+      this.cube.style.transformStyle = "preserve-3d";
+      this.cube.style.position = "relative";
+      this.cube.style.display = "block";
+      this.cube.style.boxSizing = "border-box";
+      this.cube.style.margin = "0";
+      this.cube.style.padding = "0";
+
+      this.faceNames.forEach(function(faceName){
+        this[faceName].style.position = "absolute";
+        this[faceName].style.top = "0";
+        this[faceName].style.left = "0";
+        this[faceName].style.display = "block";
+        this[faceName].style.boxSizing = "border-box";
+        this[faceName].style.margin = "0";
+        this[faceName].style.padding = "0";
+      }.bind(this));
+
+      let cachName = ["front","back"];
+      this.front.style.width = "100%";
+      this.front.style.height = "100%";
+
+      this.back.style.transform = "rotateY(180deg)";
+      this.back.style.width = "100%";
+      this.back.style.height = "100%";
+
+      this.top.style.width = "100%";
+
+      this.bottom.style.width = "100%";
+
     }
 }
 
-
-function _style(cube, style){
-    style.forEach(function(element){
-        cube.style[element[0]] = element[1];
-    });
-}
-
-
+const FACE_STYLE = {
+  front : [],
+};
 
 
 function objectDefaultValue(objectToCheck, defaultObject){
@@ -82,8 +83,6 @@ function objectDefaultValue(objectToCheck, defaultObject){
   }
 
 const CUBE_DEFAULT_PARAMETERS = {
-    style : [["backgroundColor", "rgba(255,30,120,0.2)"],["borderRadius","inherit"]],
-    //front : 
     width: "50px",
     height: "50px",
     depth: "50px",
