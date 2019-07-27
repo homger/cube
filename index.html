@@ -15,6 +15,16 @@ html,body{
     padding: 0;
     margin: 0;
 }
+#rotate{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#size{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 main{
     height: 50%;
     top: 25%;
@@ -28,5 +38,45 @@ main{
 </style>
 <body>
     <main></main>
+
+    <div id="size">
+      <h2>SIZE</h2>
+        <label for="w">
+          Set Width
+        </label>
+        <input name="w" id="w" type="text">
+        <br>
+        <label for="h">
+          Set Height
+        </label>
+        <input name="h" id="h" type="text">
+        <br>
+        <label for="w">
+          Set depth
+        </label>
+        <input name="d" id="d" type="text">
+    </div>
+
+    <div id="rotate">
+        <h2>ROTATE</h2>
+        <label for="x">
+          ROTATE X
+        </label>
+        <input name="x" id="x" type="text">
+        <button id="bX">+90</button>
+        <br>
+        <label for="y">
+            ROTATE Y
+        </label>
+        <input name="y" id="y" type="text">
+        <button id="bY">+90</button>
+        <br>
+        <label for="z">
+            ROTATE Z
+        </label>
+        <input name="z" id="z" type="text">
+        <button id="bZ">+90</button>
+        
+    </div>
 </body>
 </html>
